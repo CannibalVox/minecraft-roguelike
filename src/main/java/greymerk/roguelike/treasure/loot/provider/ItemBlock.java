@@ -22,6 +22,6 @@ public class ItemBlock extends ItemBase{
             }
         }
 
-        return Loot.getEquipment(rand, level);
+        return Loot.getSupplies(rand, level);
 	}
 }

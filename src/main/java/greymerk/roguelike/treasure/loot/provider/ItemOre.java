@@ -17,6 +17,6 @@ public class ItemOre extends ItemBase{
 		if(level < 2 && rand.nextInt(500) == 0){
 			return ItemNovelty.getItem(ItemNovelty.MCGAMER);
 		}
-		return Loot.getEquipment(rand, level);
+		return Loot.getSupplies(rand, level);
     }
 }

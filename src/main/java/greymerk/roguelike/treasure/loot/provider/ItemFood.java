@@ -24,6 +24,6 @@ public class ItemFood extends ItemBase{
 			return ItemNovelty.getItem(items[rand.nextInt(items.length)]);
 		}
 		
-		return Loot.getEquipment(rand, level);
+		return Loot.getSupplies(rand, level);
 	}
 }

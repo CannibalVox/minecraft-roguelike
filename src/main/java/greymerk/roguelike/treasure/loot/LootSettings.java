@@ -48,7 +48,7 @@ public class LootSettings {
 		loot.put(Loot.FOOD, new ItemFood(0, level));
 		loot.put(Loot.ENCHANTBOOK, new EquipmentLootProvider(0, level));
 		loot.put(Loot.ENCHANTBONUS, new EquipmentLootProvider(0, level));
-		loot.put(Loot.SUPPLY, new ItemSupply(0, level));
+		loot.put(Loot.SUPPLY, new ItemJunk(0, level));
 		loot.put(Loot.MUSIC, new ItemRecord(0, level));
 		loot.put(Loot.SMITHY, new ItemSmithy(0, level));
 		loot.put(Loot.SPECIAL, new EquipmentLootProvider(0, level));

@@ -5,8 +5,10 @@ import greymerk.roguelike.treasure.loot.provider.ItemArmour;
 import greymerk.roguelike.treasure.loot.provider.ItemNovelty;
 import greymerk.roguelike.treasure.loot.provider.ItemTool;
 import greymerk.roguelike.treasure.loot.provider.ItemWeapon;
+import greymerk.roguelike.treasure.loot.provider.tables.LootTables;
 import greymerk.roguelike.util.TextFormat;
 
+import java.io.File;
 import java.util.List;
 import java.util.Random;
 
@@ -28,6 +30,27 @@ public enum Loot {
 	
 	WEAPON, ARMOUR, BLOCK, JUNK, ORE, TOOL, POTION, FOOD, ENCHANTBOOK, ENCHANTBONUS, SUPPLY, MUSIC, SMITHY, SPECIAL, REWARD;
 
+    private static LootTables lootTables = null;
+    private static LootTables getLootTables() {
+        if (lootTables == null) {
+            File lootDirectories = new File(RogueConfig.configDirName, "loot");
+            lootTables = new LootTables(lootDirectories);
+        }
+
+        return lootTables;
+    }
+
+    public static ItemStack getEquipment(Random rand, int level) {
+        return getLootTables().getEquipment(level, rand);
+    }
+
+    public static ItemStack getJunk(Random rand, int level) {
+        return getLootTables().getJunk(level, rand);
+    }
+
+    public static ItemStack getSupplies(Random rand, int level) {
+        return getLootTables().getSupplies(level, rand);
+    }
 	
 	public static ItemStack getEquipmentBySlot(Random rand, Slot slot, int level, boolean enchant){
 		

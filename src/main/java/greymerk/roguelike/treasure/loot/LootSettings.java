@@ -14,6 +14,7 @@ import greymerk.roguelike.treasure.loot.provider.ItemSpecialty;
 import greymerk.roguelike.treasure.loot.provider.ItemSupply;
 import greymerk.roguelike.treasure.loot.provider.ItemTool;
 import greymerk.roguelike.treasure.loot.provider.ItemWeapon;
+import greymerk.roguelike.treasure.loot.provider.tables.EquipmentLootProvider;
 import greymerk.roguelike.util.IWeighted;
 import greymerk.roguelike.util.WeightedRandomizer;
 
@@ -33,22 +34,25 @@ public class LootSettings {
 	private Map<Loot, IWeighted<ItemStack>> loot;
 	
 	public LootSettings(int level){
+        //Ping the loot table to force them to load from a file if they aren't already
+        Loot.getJunk(new Random(), level);
+
 		loot = new HashMap<Loot, IWeighted<ItemStack>>();
-		loot.put(Loot.WEAPON, new ItemWeapon(0, level));
-		loot.put(Loot.ARMOUR, new ItemArmour(0, level));
+		loot.put(Loot.WEAPON, new EquipmentLootProvider(0, level));
+		loot.put(Loot.ARMOUR, new EquipmentLootProvider(0, level));
 		loot.put(Loot.BLOCK, new ItemBlock(0, level));
 		loot.put(Loot.JUNK, new ItemJunk(0, level));
 		loot.put(Loot.ORE, new ItemOre(0, level));
 		loot.put(Loot.TOOL, new ItemTool(0, level));
-		loot.put(Loot.POTION, new ItemPotion(0, level));
+		loot.put(Loot.POTION, new EquipmentLootProvider(0, level));
 		loot.put(Loot.FOOD, new ItemFood(0, level));
-		loot.put(Loot.ENCHANTBOOK, new ItemEnchBook(0, level));
-		loot.put(Loot.ENCHANTBONUS, new ItemEnchBonus(0, level));
+		loot.put(Loot.ENCHANTBOOK, new EquipmentLootProvider(0, level));
+		loot.put(Loot.ENCHANTBONUS, new EquipmentLootProvider(0, level));
 		loot.put(Loot.SUPPLY, new ItemSupply(0, level));
 		loot.put(Loot.MUSIC, new ItemRecord(0, level));
 		loot.put(Loot.SMITHY, new ItemSmithy(0, level));
-		loot.put(Loot.SPECIAL, new ItemSpecialty(0, level));
-		loot.put(Loot.REWARD, new WeightedRandomLoot(Items.stick, 0, 1));
+		loot.put(Loot.SPECIAL, new EquipmentLootProvider(0, level));
+		loot.put(Loot.REWARD, new EquipmentLootProvider(0, level));
 	}
 	
 	public LootSettings(LootSettings toCopy){

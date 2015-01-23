@@ -11,7 +11,6 @@ import java.util.Random;
 public class TableItem implements IWeighted<ItemStack> {
     private int weight;
     private String item;
-    private Item parsedItem;
     private int meta;
     private int min = 1;
     private int max = 0;
@@ -19,6 +18,7 @@ public class TableItem implements IWeighted<ItemStack> {
     private boolean dye;
 
     private transient int level;
+    private transient Item parsedItem;
 
     public void postLoadProcess(int level) {
         this.level = level;
@@ -38,7 +38,10 @@ public class TableItem implements IWeighted<ItemStack> {
 
     @Override
     public ItemStack get(Random rand) {
-        int count = rand.nextInt(max-min) + min;
+        int count = 0;
+        if (max > min)
+            count = rand.nextInt(max-min);
+        count += min;
         ItemStack newItem = new ItemStack(parsedItem, count, meta);
 
         if (enchant)

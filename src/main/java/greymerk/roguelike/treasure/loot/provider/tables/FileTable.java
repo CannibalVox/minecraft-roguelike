@@ -28,10 +28,19 @@ public class FileTable implements IWeighted<ItemStack> {
         try {
             content = Files.toString(file, Charsets.UTF_8);
         } catch (IOException e1) {
-            return null;
+            throw new RuntimeException("Error while loading "+file.getName()+":", e1);
         }
 
-        FileTable table = gson.fromJson(content, FileTable.class);
+        FileTable table = null;
+        try {
+            table = gson.fromJson(content, FileTable.class);
+        } catch (Exception ex) {
+            throw new RuntimeException("Error while parsing "+file.getName()+":", ex);
+        }
+
+        if (table == null) {
+            throw new RuntimeException("File "+file.getName()+" parsed to null.");
+        }
         table.postLoadProcess(level);
         return table;
     }

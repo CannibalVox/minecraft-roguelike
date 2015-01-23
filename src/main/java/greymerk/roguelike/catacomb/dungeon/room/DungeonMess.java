@@ -4,6 +4,7 @@ import greymerk.roguelike.catacomb.dungeon.DungeonBase;
 import greymerk.roguelike.catacomb.settings.CatacombLevelSettings;
 import greymerk.roguelike.catacomb.theme.ITheme;
 import greymerk.roguelike.config.RogueConfig;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.TreasureChestBase;
 import greymerk.roguelike.treasure.loot.Loot;
 import greymerk.roguelike.treasure.loot.LootSettings;
@@ -140,7 +141,7 @@ public class DungeonMess extends DungeonBase {
 		WorldGenPrimitive.setBlock(world, rand, x + 2, y, z - 1, WorldGenPrimitive.blockOrientation(stairSpruce, Cardinal.SOUTH, true), true, true);
 		WorldGenPrimitive.setBlock(world, rand, x + 2, y, z, WorldGenPrimitive.blockOrientation(stairSpruce, Cardinal.WEST, true), true, true);
 		WorldGenPrimitive.setBlock(world, rand, x + 2, y, z + 1, WorldGenPrimitive.blockOrientation(stairSpruce, Cardinal.NORTH, true), true, true);
-		new TreasureChestFoodStore().generate(world, rand, loot, x + 2, y + 1, z, 1, false);
+        TreasureChest.generate(world, rand, loot, x + 2, y + 1, z, 1, false);
 		
 		// south shelf
 		WorldGenPrimitive.setBlock(world, rand, x - 1, y, z + 2, WorldGenPrimitive.blockOrientation(stairSpruce, Cardinal.EAST, true), true, true);
@@ -193,24 +194,6 @@ public class DungeonMess extends DungeonBase {
 		WorldGenPrimitive.setBlock(world, rand, x - 1, y + height, z, WorldGenPrimitive.blockOrientation(stair, Cardinal.WEST, true), true, true);
 		WorldGenPrimitive.setBlock(world, rand, x, y + height, z + 1, WorldGenPrimitive.blockOrientation(stair, Cardinal.SOUTH, true), true, true);
 		WorldGenPrimitive.setBlock(world, rand, x, y + height, z - 1, WorldGenPrimitive.blockOrientation(stair, Cardinal.NORTH, true), true, true);
-	}
-	
-	private class TreasureChestFoodStore extends TreasureChestBase{
-
-		@Override
-		protected void fillChest(TileEntityChest chest, LootSettings loot, int level) {
-			ItemStack item;
-			
-			int stacks = RogueConfig.getBoolean(RogueConfig.GENEROUS) ? chest.getSizeInventory() : 12; 
-			
-			for (int i = 0; i < stacks; i++) {
-				if(rand.nextInt(10) < 8){
-					item = loot.get(Loot.FOOD, rand);
-					chest.setInventorySlotContents(rand.nextInt(chest.getSizeInventory()), item);	
-				}
-			}
-		}
-		
 	}
 	
 	public int getSize(){

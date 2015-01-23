@@ -4,6 +4,7 @@ import greymerk.roguelike.catacomb.dungeon.DungeonBase;
 import greymerk.roguelike.catacomb.settings.CatacombLevelSettings;
 import greymerk.roguelike.catacomb.theme.ITheme;
 import greymerk.roguelike.config.RogueConfig;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.TreasureChestBase;
 import greymerk.roguelike.treasure.loot.LootSettings;
 import greymerk.roguelike.treasure.loot.provider.ItemFood;
@@ -168,13 +169,13 @@ public class DungeonAshlea extends DungeonBase {
 		WorldGenPrimitive.setBlock(world, rand, x + 2, y, z - 1, WorldGenPrimitive.blockOrientation(stairSpruce, Cardinal.SOUTH, true), true, true);
 		WorldGenPrimitive.setBlock(world, rand, x + 2, y, z, WorldGenPrimitive.blockOrientation(stairSpruce, Cardinal.WEST, true), true, true);
 		WorldGenPrimitive.setBlock(world, rand, x + 2, y, z + 1, WorldGenPrimitive.blockOrientation(stairSpruce, Cardinal.NORTH, true), true, true);
-		new TreasureChestAshlea().generate(world, rand, loot, x + 2, y + 1, z, 1, false);
+        TreasureChest.generate(world, rand, loot, x + 2, y + 1, z, 1, false);
 		
 		// south shelf
 		WorldGenPrimitive.setBlock(world, rand, x - 1, y, z + 2, WorldGenPrimitive.blockOrientation(stairSpruce, Cardinal.EAST, true), true, true);
 		WorldGenPrimitive.setBlock(world, rand, x, y, z + 2, WorldGenPrimitive.blockOrientation(stairSpruce, Cardinal.NORTH, true), true, true);
 		WorldGenPrimitive.setBlock(world, rand, x + 1, y, z + 2, WorldGenPrimitive.blockOrientation(stairSpruce, Cardinal.WEST, true), true, true);
-		new TreasureChestAshlea().generate(world, rand, loot, x, y + 1, z + 2, 1, false);
+        TreasureChest.generate(world, rand, loot, x, y + 1, z + 2, 1, false);
 	}
 	
 	private static void pillar(World world, Random rand, ITheme theme, int x, int y, int z){
@@ -190,24 +191,6 @@ public class DungeonAshlea extends DungeonBase {
 		WorldGenPrimitive.setBlock(world, rand, x, y + 2, z + 1, WorldGenPrimitive.blockOrientation(stair, Cardinal.SOUTH, true), true, true);
 		WorldGenPrimitive.setBlock(world, rand, x, y + 2, z - 1, WorldGenPrimitive.blockOrientation(stair, Cardinal.NORTH, true), true, true);
 		WorldGenPrimitive.fillRectSolid(world, rand, x - 1, y + 3, z - 1, x + 1, y + 3, z + 1, wall, true, true);
-		
-	}
-	
-	private class TreasureChestAshlea extends TreasureChestBase{
-
-		@Override
-		protected void fillChest(TileEntityChest chest, LootSettings loot, int level) {
-			ItemStack item;
-			
-			int stacks = RogueConfig.getBoolean(RogueConfig.GENEROUS) ? chest.getSizeInventory() : 12; 
-			
-			for (int i = 0; i < stacks; i++) {
-				if(rand.nextInt(10) < 8){
-					item = ItemFood.getDessert(rand);
-					chest.setInventorySlotContents(rand.nextInt(chest.getSizeInventory()), item);	
-				}
-			}
-		}
 		
 	}
 	

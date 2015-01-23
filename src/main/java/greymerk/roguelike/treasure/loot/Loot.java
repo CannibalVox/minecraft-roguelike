@@ -149,26 +149,26 @@ public enum Loot {
 	public static void setItemName(ItemStack item, String name){
 		setItemName(item, name, null);
 	}
-	
+
 	public static void addEquipment(World world, int level, Entity mob){
-			
+
 		if(level > 4) level = 4;
-		
+
 		Random rand = world.rand;
-				
+
 		EnumDifficulty difficulty = world.difficultySetting;
-		
+
 		boolean enchant;
-		
+
 		switch(difficulty){
 		case EASY: enchant = rand.nextInt(5) == 0; break;
 		case NORMAL: enchant = level == 3 || rand.nextBoolean(); break;
 		case HARD: enchant = true; break;
 		default: enchant = true;
 		}
-		
+
 		ItemStack weapon;
-		
+
 		// zombie gets a sword
 		if(mob instanceof EntityZombie){
 			if(rand.nextInt(20) == 0){
@@ -185,10 +185,10 @@ public enum Loot {
 			}
 			mob.setCurrentItemOrArmor(0, weapon);
 		}
-		
+
 		// skelly gets a bow
 		if(mob instanceof EntitySkeleton){
-			
+
 			if(rand.nextInt(10) == 0 && level > 1){
 				((EntitySkeleton) mob).setSkeletonType(1);
 				mob.setCurrentItemOrArmor(0, ItemWeapon.getSword(rand, level, enchant));
@@ -200,7 +200,7 @@ public enum Loot {
 				}
 			}
 		}
-		
+
 		// put on some armour
 		for(int i = 1; i < 5; i++){
 			if (enchant){
@@ -208,12 +208,12 @@ public enum Loot {
 				mob.setCurrentItemOrArmor(i, item);
 			}
 		}
-		
+
 		// lower drop chance
 
 		for(int s = 0; s < 5; s++){
 			((EntityLiving)mob).setEquipmentDropChance(s, (float) RogueConfig.getDouble(RogueConfig.LOOTING));
 		}
 	}
-	
+
 }

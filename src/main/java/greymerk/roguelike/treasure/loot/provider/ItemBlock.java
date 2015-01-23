@@ -14,19 +14,14 @@ public class ItemBlock extends ItemBase{
 
 	@Override
 	public ItemStack getLootItem(Random rand, int level) {
-		return getRandom(rand, level);
-	}
-	
-	public static ItemStack getRandom(Random rand, int level){
-		
-		if(level > 0 && rand.nextInt(500) == 0){
-			if(rand.nextBoolean()){
-				return ItemNovelty.getItem(ItemNovelty.MMILLSS);
-			} else {
-				return ItemNovelty.getItem(ItemNovelty.QUANTUMLEAP);
-			}
-		}
-		
-		return Loot.getEquipment(rand, level);
+        if(level > 0 && rand.nextInt(500) == 0){
+            if(rand.nextBoolean()){
+                return ItemNovelty.getItem(ItemNovelty.MMILLSS);
+            } else {
+                return ItemNovelty.getItem(ItemNovelty.QUANTUMLEAP);
+            }
+        }
+
+        return Loot.getEquipment(rand, level);
 	}
 }
